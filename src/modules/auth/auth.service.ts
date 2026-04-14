@@ -8,6 +8,8 @@ import {
   EXPIRED_REFRESH_TOKEN_JWT,
 } from "./constants.js";
 import { MailService } from "../mail/mail.service.js";
+import { RegisterDTO } from "./dto/register.dto.js";
+import { LoginDTO } from "./dto/login.dto.js";
 
 export class AuthService {
   constructor(
@@ -15,7 +17,7 @@ export class AuthService {
     private mailService: MailService,
   ) {}
 
-  register = async (body: User) => {
+  register = async (body: RegisterDTO) => {
     const user = await this.prisma.user.findUnique({
       where: {
         email: body.email,
@@ -48,7 +50,7 @@ export class AuthService {
     };
   };
 
-  login = async (body: User) => {
+  login = async (body: LoginDTO) => {
     const user = await this.prisma.user.findUnique({
       where: { email: body.email },
     });
